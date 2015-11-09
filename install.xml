@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<plugin name="rss_reader">
+	<title>RSS Reader</title>
+	<summary>Allows to display remote RSS feed on your site.</summary>
+	<author>Intelliants LLC</author>
+	<contributor>Intelliants LLC</contributor>
+	<version>3.3.0</version>
+	<date>2015-06-24</date>
+	<compatibility>3.3</compatibility>
+
+	<adminpages>
+		<page menus="menu" url="rss_reader/" filename="index" name="rss_reader">RSS Reader</page>
+	</adminpages>
+
+	<phrases>
+		<phrase category="admin" key="rss_manage">RSS Reader</phrase>
+		<phrase category="admin" key="no_rss">No RSS have been added.</phrase>
+		<phrase category="admin" key="max_items">Max Items</phrase>
+		<phrase category="admin" key="rm_rss_conf">Are you sure want to delete this RSS?</phrase>
+		<phrase category="admin" key="add_rss">Create RSS</phrase>
+		<phrase category="admin" key="rss_links">RSS Links</phrase>
+		<phrase category="admin" key="rss_title">Title</phrase>
+		<phrase category="admin" key="rss_refresh_time">Refresh time</phrase>
+		<phrase category="admin" key="delete_rss">Delete RSS</phrase>
+		<phrase category="admin" key="rss_deleted">RSS Deleted</phrase>
+        <phrase category="admin" key="entries_limit">Entries limit</phrase>
+	</phrases>
+
+	<hooks>
+		<hook name="bootstrap" page_type="front" filename="plugins/rss_reader/index.php"><![CDATA[]]></hook>
+	</hooks>
+
+	<install>
+		<sql>
+			<![CDATA[
+CREATE TABLE `{prefix}rss_blocks` (
+	`feed_id` int(8) unsigned NOT NULL PRIMARY KEY,
+	`block_id` int(8) unsigned NOT NULL,
+	`feed_url` varchar(255) NOT NULL,
+	`refresh` smallint(8) NOT NULL,
+	`entries_limit` smallint(8) NOT NULL
+	);
+			]]>
+		</sql>
+	</install>
+
+	<uninstall>
+		<sql>
+			<![CDATA[
+DROP TABLE `{prefix}rss_blocks`;
+			]]>
+		</sql>
+	</uninstall>
+</plugin>
