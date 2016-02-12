@@ -4,9 +4,9 @@
 	<summary>Allows to display remote RSS feed on your site.</summary>
 	<author>Intelliants LLC</author>
 	<contributor>Intelliants LLC</contributor>
-	<version>3.3.0</version>
-	<date>2015-06-24</date>
-	<compatibility>3.3</compatibility>
+	<version>4.0.0</version>
+	<date>2016-02-12</date>
+	<compatibility>4.0.4</compatibility>
 
 	<adminpages>
 		<page menus="menu" url="rss_reader/" filename="index" name="rss_reader">RSS Reader</page>

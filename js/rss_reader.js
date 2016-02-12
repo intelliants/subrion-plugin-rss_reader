@@ -1,22 +1,24 @@
 function delete_rss(fid)
 {
-	if(confirm(_t('rm_rss_conf')))
-	{
-		$('#rss-form-' + fid).remove();
-		
-		var url = intelli.config.admin_url + '/rss_reader/post.json';
-		
-		var post_data = new Object();
-		post_data.act = 'delete';
-		post_data.id = fid;
-		
-		$.post(url, post_data, function(data)
+	intelli.confirm(_t('rm_rss_conf'), null, function(result) {
+		if(result)
 		{
-			var type = data.error ? 'error' : 'success';
+			$('#rss-form-' + fid).remove();
 
-			intelli.notifBox({msg: data.msg, type: type, autohide: true});
-		});
-	}
+			var url = intelli.config.admin_url + '/rss_reader/post.json';
+
+			var post_data = new Object();
+			post_data.act = 'delete';
+			post_data.id = fid;
+
+			$.post(url, post_data, function(data)
+			{
+				var type = data.error ? 'error' : 'success';
+
+				intelli.notifBox({msg: data.msg, type: type, autohide: true});
+			});
+		}
+	});
 }
 
 $(function()
