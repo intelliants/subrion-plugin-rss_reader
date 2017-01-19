@@ -26,13 +26,14 @@ class iaRSSFeed extends abstractCore
 	{
 		$feed_exists = $this->iaDb->exists('`feed_id` = :feed_id', array('feed_id' => $id), self::getTable());
 
-		$this->iaDb->setTable('language');
-		iaLanguage::set('block_title_rss'.$id, $title);
+		//$this->iaDb->setTable('language');
+		//iaLanguage::set('block_title_rss'.$id, $title);	Does not work
 
-		if ($feed_exists)
+		$this->iaDb->setTable(self::getTable());
+		if($feed_exists)
 		{
-			$result = $this->iaDb->update(array('value' => $title), '`key` = ' . '"block_title_rss'.$id . '" AND `code` = "' . IA_LANGUAGE . '"');
-
+			$this->iaDb->update($fields, '`feed_id` = ' . $id);
+			$this->iaDb->update(array('title' => $title), "`name` = 'rss$id'", null, 'blocks');
 		}
 		else
 		{
@@ -57,24 +58,13 @@ class iaRSSFeed extends abstractCore
 				'sticky' => 1,
 				'order' => $this->iaDb->one("MAX(`order`) + 1", null, 'blocks')
 			),false, 'blocks');
+			
+			$fields['feed_id'] = $id;
+			$this->iaDb->insert($fields);
 		}
-
+		
 		$this->iaDb->resetTable();
-//	if ($result)
-//		{
-			$this->iaDb->setTable(self::getTable());
-			if($feed_exists)
-			{
-				$this->iaDb->update($fields, '`feed_id` = ' . $id);
-			}
-			else
-			{
-				$fields['feed_id'] = $id;
-				$this->iaDb->insert($fields);
-			}
-			$this->iaDb->resetTable();
-//		}
-
+		
 		return result;
 	}
 

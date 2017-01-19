@@ -37,7 +37,6 @@ if (iaView::REQUEST_JSON == $iaView->getRequestType())
 		$feed_url = $_POST['feed_url'];
 		$entries_limit = (int)$_POST['entries_limit'];
 		$refresh = ($_POST['refresh'] != '0' && $_POST['refresh'] != '') ? (int)$_POST['refresh'] : 600;
-		$refresh = max(10 * 60, $refresh);
 
 		if (empty($title))
 		{
