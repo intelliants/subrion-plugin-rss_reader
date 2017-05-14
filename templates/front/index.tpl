@@ -7,7 +7,7 @@
 			{foreach $rss_reader as $item}
 				<div class="ia-item ia-item--border-bottom">
 					<h5>
-						<span class="fa fa-rss" style="color:orange;"></span> <a href="{$item.link}">{$item.title}</a>
+						<span class="fa fa-rss" style="color:orange;"></span> <a href="{$item.link}" target="_blank">{$item.title}</a>
 					</h5>
 					{if isset($item.description) && !empty($item.description)}
 						<p>{$item.description|strip_tags|truncate:150:'...':false}</p>

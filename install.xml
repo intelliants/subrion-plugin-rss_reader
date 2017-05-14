@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8" ?>
-<plugin name="rss_reader">
+<module type="plugin" name="rss_reader">
 	<title>RSS Reader</title>
 	<summary>Allows to display remote RSS feed on your site.</summary>
 	<author>Intelliants LLC</author>
 	<contributor>Intelliants LLC</contributor>
-	<version>4.0.0</version>
-	<date>2016-02-15</date>
-	<compatibility>4.0</compatibility>
+	<version>5.0.0</version>
+	<date>2017-04-30</date>
+	<compatibility>4.1</compatibility>
 
 	<adminpages>
 		<page menus="menu" url="rss_reader/" filename="index" name="rss_reader">RSS Reader</page>
@@ -27,7 +27,7 @@
 	</phrases>
 
 	<hooks>
-		<hook name="bootstrap" page_type="front" filename="plugins/rss_reader/index.php"><![CDATA[]]></hook>
+		<hook name="bootstrap" page_type="front" filename="modules/rss_reader/index.php"><![CDATA[]]></hook>
 	</hooks>
 
 	<install>
@@ -38,7 +38,8 @@ CREATE TABLE `{prefix}rss_blocks` (
 	`block_id` int(8) unsigned NOT NULL,
 	`feed_url` varchar(255) NOT NULL,
 	`refresh` smallint(8) NOT NULL,
-	`entries_limit` smallint(8) NOT NULL
+	`entries_limit` smallint(8) NOT NULL,
+	`title` varchar(100) NOT NULL
 	);
 			]]>
 		</sql>
@@ -51,4 +52,4 @@ DROP TABLE `{prefix}rss_blocks`;
 			]]>
 		</sql>
 	</uninstall>
-</plugin>
+</module>
