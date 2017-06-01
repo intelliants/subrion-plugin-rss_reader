@@ -36,4 +36,4 @@
 <input type="button" class="btn btn-primary" value="{lang key='add_rss'}" id="add_rss">
 <input type="submit" class="btn btn-success" value="{lang key='save'}">
 </form>
-{ia_add_media files='js:_IA_URL_plugins/rss_reader/js/rss_reader'}
+{ia_add_media files='js:_IA_URL_modules/rss_reader/js/rss_reader'}

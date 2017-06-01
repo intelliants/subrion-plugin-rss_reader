@@ -67,5 +67,5 @@ if (isset($rss_id))
 	}
 	$iaCore->iaView->iaSmarty->assign('rss_reader', $rssFeeds);
 
-	echo $iaCore->iaView->iaSmarty->fetch(IA_PLUGINS . 'rss_reader/templates/front/index.tpl');
+	echo $iaCore->iaView->iaSmarty->fetch(IA_MODULES . 'rss_reader/templates/front/index.tpl');
 }

@@ -24,7 +24,7 @@
  *
  ******************************************************************************/
 
-$iaRSSFeed = $iaCore->factoryPlugin('rss_reader', iaCore::ADMIN, 'rssfeed');
+$iaRSSFeed = $iaCore->factoryPlugin(IA_CURRENT_MODULE, iaCore::ADMIN, 'rssfeed');
 
 if (iaView::REQUEST_JSON == $iaView->getRequestType())
 {
@@ -37,22 +37,22 @@ if (iaView::REQUEST_JSON == $iaView->getRequestType())
 		$feed_url = $_POST['feed_url'];
 		$entries_limit = (int)$_POST['entries_limit'];
 		$refresh = ($_POST['refresh'] != '0' && $_POST['refresh'] != '') ? (int)$_POST['refresh'] : 600;
-		$refresh = max(10 * 60, $refresh);
 
 		if (empty($title))
 		{
 			$title = 'RSS News';
+		} else {
+			$title = iaSanitize::sql($title);
 		}
 
 		$data = array(
 			'refresh' => $refresh,
 			'entries_limit' => $entries_limit,
-			'feed_url' => $feed_url
+			'feed_url' => $feed_url,
+			'title' => $title
 		);
 
-		$title = iaSanitize::sql($title);
-
-		$result = $iaRSSFeed->update($data, $id, $title);
+		$result = $iaRSSFeed->update($data, $id);
 		if ($result)
 		{
 			$out['error'] = false;
