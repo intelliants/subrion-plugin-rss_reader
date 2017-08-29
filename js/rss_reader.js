@@ -5,11 +5,7 @@ function delete_rss(fid) {
 
             var url = intelli.config.admin_url + '/rss_reader/post.json';
 
-            var post_data = new Object();
-            post_data.act = 'delete';
-            post_data.id = fid;
-
-            $.post(url, post_data, function (data) {
+            intelli.post(url, {act: 'delete', id: fid}, function (data) {
                 var type = data.error ? 'error' : 'success';
                 intelli.notifBox({msg: data.msg, type: type, autohide: true});
             });
@@ -22,10 +18,10 @@ $(function () {
         var rss_ids = $('input[name="rss_id[]"]').map(function () {
             return this.value;
         }).get();
+
         if (rss_ids.length < 1) {
             var new_id = 1;
-        }
-        else {
+        } else {
             var last_id = rss_ids[rss_ids.length - 1];
             var new_id = parseInt(last_id) + 1;
         }
@@ -68,8 +64,8 @@ $(function () {
         $('#submit-rss .wrap-list').append(td1_content);
     });
 
-    $("#submit-rss").submit(function (event) {
-        event.preventDefault();
+    $("#submit-rss").submit(function (e) {
+        e.preventDefault();
 
         var rss_ids = $('input[name="rss_id[]"]').map(function () {
             return this.value;
@@ -80,15 +76,16 @@ $(function () {
         $.each(rss_ids, function (i, v) {
             //Only save RSS if feed_url exists, default title if missing title
             if ($('textarea[name="feed_url-' + v + '"]').val() != "") {
-                var post_data = new Object();
-                post_data.act = 'save';
-                post_data.id = v;
-                post_data.title = $('input[name="title-' + v + '"]').val();
-                post_data.refresh = $('input[name="refresh-' + v + '"]').val();
-                post_data.entries_limit = $('input[name="entries_limit-' + v + '"]').val();
-                post_data.feed_url = $('textarea[name="feed_url-' + v + '"]').val();
+                var params = {
+                    act: 'save',
+                    id: v,
+                    title: $('input[name="title-' + v + '"]').val(),
+                    refresh: $('input[name="refresh-' + v + '"]').val(),
+                    entries_limit: $('input[name="entries_limit-' + v + '"]').val(),
+                    feed_url: $('textarea[name="feed_url-' + v + '"]').val()
+                };
 
-                $.post(url, post_data, function (data) {
+                intelli.post(url, params, function (data) {
                     var type = data.error ? 'error' : 'success';
                     intelli.notifBox({msg: data.msg, type: type, autohide: true});
                 });
