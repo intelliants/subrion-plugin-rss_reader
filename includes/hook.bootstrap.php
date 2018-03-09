@@ -2,7 +2,7 @@
 /******************************************************************************
  *
  * Subrion - open source content management system
- * Copyright (C) 2017 Intelliants, LLC <https://intelliants.com>
+ * Copyright (C) 2018 Intelliants, LLC <https://intelliants.com>
  *
  * This file is part of Subrion.
  *
@@ -27,7 +27,7 @@
 if (isset($rss_id)) {
     include_once IA_INCLUDES . 'utils/rss2array.php';
 
-    $iaRSSFeed = $iaCore->factoryPlugin('rss_reader', iaCore::ADMIN, 'rssfeed');
+    $iaRSSFeed = $iaCore->factoryModule('rssfeed', 'rss_reader', iaCore::ADMIN);
 
     $rssFeeds = [];
 
@@ -50,14 +50,16 @@ if (isset($rss_id)) {
 
             if (!$rssFeeds) {
                 $sourceFeed = rss2array($url);
-                for ($i = 0; $i < $entries_limit; $i++) {
-                    $rssFeeds[] = $sourceFeed['items'][$i];
+                if (!empty($sourceFeed['items'])) {
+                    for ($i = 0; $i < $entries_limit; $i++) {
+                        $rssFeeds[] = $sourceFeed['items'][$i];
+                    }
+                    $iaCache->write($feedsUrl, $rssFeeds);
                 }
-
-                $iaCache->write($feedsUrl, $rssFeeds);
             }
         }
     }
+
     $iaCore->iaView->iaSmarty->assign('rss_reader', $rssFeeds);
 
     echo $iaCore->iaView->iaSmarty->fetch(IA_MODULES . 'rss_reader/templates/front/index.tpl');

@@ -4,9 +4,9 @@
     <summary>Allows to display remote RSS feed on your site.</summary>
     <author>Intelliants LLC</author>
     <contributor>Intelliants LLC</contributor>
-    <version>4.1.0</version>
-    <date>2017-06-01</date>
-    <compatibility>4.1</compatibility>
+    <version>4.2.0</version>
+    <date>2018-03-09</date>
+    <compatibility>4.2</compatibility>
 
     <adminpages>
         <page menus="menu" url="rss_reader/" filename="index" name="rss_reader">RSS Reader</page>
@@ -27,7 +27,7 @@
     </phrases>
 
     <hooks>
-        <hook name="bootstrap" page_type="front" filename="hook.bootstrap"><![CDATA[]]></hook>
+        <hook name="bootstrap" page_type="front" filename="hook.bootstrap.php"><![CDATA[]]></hook>
     </hooks>
 
     <install>
